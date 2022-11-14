@@ -31,7 +31,7 @@ protected function authenticated(){
 
     if(Auth::user()->role_as=='1'){
 
-        return redirect ('admin/dashboard')->with('status', 'welcome to dashboard');
+        return redirect ('admin/dashboard')->with('message', 'welcome to dashboard');
     }
     else{
         return redirect ('/home')->with('status', 'Logged in successfully');

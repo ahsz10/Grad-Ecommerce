@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
 
-            $table->tinyInteger('role_as')->default('0')->comment('user=0,admin=1');
+            // $table->tinyInteger('role_as')->default('0')->comment('user=0,admin=1');
         });
     }
 
