@@ -83,7 +83,7 @@ class ProductFormRequest extends FormRequest
             ],
             'image' => [
                 'nullable',
-                'mimes:jpeg,png,jpg'
+                // 'mimes:jpeg,png,jpg'
             ],
         ];
     }
