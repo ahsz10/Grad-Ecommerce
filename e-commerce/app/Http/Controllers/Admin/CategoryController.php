@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\Category;
+use Illuminate\Support\Facades\File;
 use App\http\Requests\CategoryFormRequest;
 use Illuminate\Auth\Events\Validated;
 
@@ -24,7 +25,7 @@ class CategoryController extends Controller
         $validatedData = $request->validated();
         $category = new Category;
         $category->name = $validatedData['name'];
-        $category->slug = Str::slug($validatedData['name']);
+        $category->slug = Str::slug($validatedData['slug']);
         $category->description = $validatedData['description'];
 
         if($request->hasFile('image')){
@@ -44,4 +45,41 @@ class CategoryController extends Controller
 
         return redirect('admin/category')->with('message', 'Category Added Successfully');
     }
+
+    public function edit(Category $category){
+        return view('admin.category.edit', compact('category'));
+    }
+
+    public function update(CategoryFormRequest $request, $category){
+        $validatedData = $request->validated();
+        // dd($validatedData);
+        $category= Category::findOrFail($category);
+        // dd($category,$validatedData);
+        // $category = new Category;
+        $category->name = $validatedData['name'];
+        $category->slug = Str::slug($validatedData['slug']);
+        $category->description = $validatedData['description'];
+
+        if($request->hasFile('image')){
+            $path = 'uploads/category/'.$category->image;
+            if(File::exists($path)){
+                File::delete($path);
+            }
+            $file = $request->file('image');
+            $ext = $file->getClientOriginalExtension();
+            $fliename = time().'.'.$ext;
+            $file->move('uploads/category/',$fliename);
+            $category->image = $validatedData['image'];
+        }
+
+        $category->meta_title = $validatedData['meta_title'];
+        $category->meta_keyword = $validatedData['meta_keyword'];
+        $category->meta_description = $validatedData['meta_description'];
+
+        $category->status = $request->status == true ? '1':'0';
+        $category->update();
+
+        return redirect('admin/category')->with('message', 'Category Updated Successfully');
+    }
+
 }
