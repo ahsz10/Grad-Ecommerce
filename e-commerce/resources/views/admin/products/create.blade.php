@@ -161,7 +161,7 @@
                             <div class="mb-3">
                                 <label>Select Color</label>
                                 <hr/>
-                                {{-- <div class="row">
+                                <div class="row">
                                     @forelse ($colors as $coloritem)
                                     <div class="col-md-3">
                                         <div class="p-2 border mb-3">
@@ -176,7 +176,7 @@
                                         <h1>No colors found</h1>
                                     </div>
                                     @endforelse
-                                </div> --}}
+                                </div>
                             </div>
                         </div>
 
