@@ -2,32 +2,32 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-
 use App\Models\Brand;
-use App\Models\Product;
-use App\Models\ProductImage;
-use App\Models\ProductColor;
-use App\Models\Category;
 use App\Models\Color;
+use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Support\Str;
+use App\Models\ProductColor;
+use App\Models\ProductImage;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
 use App\Http\Requests\ProductFormRequest;
 
 class ProductController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $products = Product::paginate(10);
         return view('admin.products.index', compact('products'));
     }
 
-    public function create(){
+    public function create()
+    {
         $categories = Category::all();
         $brands = Brand::all();
         $colors = Color::where('status','0')->get();
         return view('admin.products.create', compact('categories','brands','colors'));
-        // return view('admin.products.create', compact('categories','brands'));
     }
 
     public function store(ProductFormRequest $request)
@@ -94,7 +94,6 @@ class ProductController extends Controller
         $colors = Color::whereNotIn('id',$product_color)->get();
 
         return view('admin.products.edit', compact('categories','brands','product','colors'));
-        // return view('admin.products.edit', compact('categories','brands','product'));
     }
 
     public function update(ProductFormRequest $request, int $product_id)
@@ -198,4 +197,5 @@ class ProductController extends Controller
         $prodColor->delete();
         return response()->json(['message'=>'Product Color Deleted']);
     }
+
 }
