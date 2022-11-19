@@ -1,0 +1,7 @@
+app.blade.php   : laraecommerce\resources\views\layouts
+
+about.blade.php :  laraecommerce\resources\views\frontend
+
+contact.blade.php : laraecommerce\resources\views\frontend
+
+app.css : laraecommerce\public\assets\css
